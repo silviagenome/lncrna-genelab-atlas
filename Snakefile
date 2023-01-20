@@ -16,4 +16,8 @@ rule download_data:
         "data/lncRNA_GLDS-168.fastq"
         
     shell:
-        #"conda activate genelab-utils"
+        """
+        # get one file, no ask for confirmation
+        GL-download-GLDS-data -g OSD-168 -f --pattern GLDS-168_rna_seq_Mmus_C57-6J_LVR_RR1_VIV_noERCC_Rep1_M16_R2_raw.fastq.gz
+        """
+
