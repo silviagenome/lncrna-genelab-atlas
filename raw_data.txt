@@ -1,0 +1,8 @@
+1 OSD-168 control GLDS-168_rna_seq_Mmus_C57-6J_LVR_RR1_VIV_noERCC_Rep1_M16_R2_raw.fastq.gz  rep1
+1 OSD-168 control GLDS-168_rna_seq_Mmus_C57-6J_LVR_RR1_VIV_noERCC_Rep1_M16_R2_raw.fastq.gz  rep2
+1 OSD-168 spaceflight GLDS-168_rna_seq_Mmus_C57-6J_LVR_RR1_VIV_noERCC_Rep1_M16_R2_raw.fastq.gz  rep1
+1 OSD-168 spaceflight GLDS-168_rna_seq_Mmus_C57-6J_LVR_RR1_VIV_noERCC_Rep1_M16_R2_raw.fastq.gz  rep2
+2
+2
+3
+3
