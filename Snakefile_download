@@ -1,0 +1,23 @@
+def get_fastq_to_download(raw_file):
+    import csv
+    with open("raw_data.txt") as csv_file:
+        csv_reader = csv.reader(csv_file, delimiter=" ")
+        raw_data=[]
+        for row in csv_reader:
+            raw_data.append(row[3])
+        return raw_data
+
+rule download_data:
+    output: 
+        get_fastq_to_download("raw_data.txt")
+    conda:
+        "envs/genelab-utils.yaml"
+    log:
+        "download_data.log"
+    shell:
+        """
+        for data in {output}
+        do
+        GL-download-GLDS-data -g OSD-168 -f --pattern $data
+        done
+        """
