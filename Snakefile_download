@@ -1,5 +1,6 @@
+import csv
+
 def get_fastq_to_download(raw_file):
-    import csv
     with open("raw_data.txt") as csv_file:
         csv_reader = csv.reader(csv_file, delimiter=" ")
         raw_data=[]
