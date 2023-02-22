@@ -10,7 +10,17 @@ Detection of long non-coding RNAs (lncRNAs) during Spaceflight using RNA-seq dat
 The first worflow downloads all the raw data
 
 ```
-snakemake --cores 2 --use-conda --config datasets=raw_data.txt  Snakefile_download
+snakemake -c1 --use-conda --jobs 1 -s Snakefile_download --cluster 'sbatch --partition eck-q'
 ```
 
-The second worflow...
+The second worflow Trim paired-end reads with trimmomatic
+
+```
+snakemake -c1 --rerun-incomplete --use-conda --jobs 1 -s Snakefile_trimmomatic --cluster 'sbatch --partition eck-q'
+```
+
+The third workflow decompress fastq.gz raw data
+
+```
+snakemake -c1 --use-conda --jobs 1 -s Snakefile_decompress --cluster 'sbatch --partition eck-q'
+```
