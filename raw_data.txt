@@ -1,8 +1,8 @@
 1 OSD-168 control GLDS-168_rna_seq_Mmus_C57-6J_LVR_RR1_GC_noERCC_Rep1_M36_R1_raw.fastq.gz R1 rep1
 1 OSD-168 control GLDS-168_rna_seq_Mmus_C57-6J_LVR_RR1_GC_noERCC_Rep1_M36_R2_raw.fastq.gz R2 rep1
-1 OSD-168 control GLDS-168_rna_seq_Mmus_C57-6J_LVR_RR1_GC_noERCC_Rep2_M37_R1_raw.fastq.gz R1 rep2 
-1 OSD-168 control GLDS-168_rna_seq_Mmus_C57-6J_LVR_RR1_GC_noERCC_Rep2_M37_R2_raw.fastq.gz R2 rep2
+2 OSD-168 control GLDS-168_rna_seq_Mmus_C57-6J_LVR_RR1_GC_noERCC_Rep2_M37_R1_raw.fastq.gz R1 rep2 
+2 OSD-168 control GLDS-168_rna_seq_Mmus_C57-6J_LVR_RR1_GC_noERCC_Rep2_M37_R2_raw.fastq.gz R2 rep2
 1 OSD-168 spaceflight GLDS-168_rna_seq_Mmus_C57-6J_LVR_RR1_FLT_noERCC_Rep1_M25_R1_raw.fastq.gz R1 rep1
 1 OSD-168 spaceflight GLDS-168_rna_seq_Mmus_C57-6J_LVR_RR1_FLT_noERCC_Rep1_M25_R2_raw.fastq.gz R2 rep1
-1 OSD-168 spaceflight GLDS-168_rna_seq_Mmus_C57-6J_LVR_RR1_FLT_noERCC_Rep2_M26_R1_raw.fastq.gz R1 rep2
-1 OSD-168 spaceflight GLDS-168_rna_seq_Mmus_C57-6J_LVR_RR1_FLT_noERCC_Rep2_M26_R2_raw.fastq.gz R2 rep2
+2 OSD-168 spaceflight GLDS-168_rna_seq_Mmus_C57-6J_LVR_RR1_FLT_noERCC_Rep2_M26_R1_raw.fastq.gz R1 rep2
+2 OSD-168 spaceflight GLDS-168_rna_seq_Mmus_C57-6J_LVR_RR1_FLT_noERCC_Rep2_M26_R2_raw.fastq.gz R2 rep2
