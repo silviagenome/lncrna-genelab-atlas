@@ -1,24 +1,28 @@
 import csv
 
-def get_fastq_to_download(raw_file):
-    with open("raw_data.txt") as csv_file:
-        csv_reader = csv.reader(csv_file, delimiter=" ")
-        raw_data=[]
-        for row in csv_reader:
-            raw_data.append(row[3])
-        return raw_data
+configfile: "config/config.yaml"
+
+'''
+def get_fastq_to_download(wildcards):
+    return config["samples"][wildcards.sample]
+        
+def get_osd_id(wildcards):
+    return config["osd_id"][wildcards.osd_id]
+'''
+
 
 rule download_data:
+    input:
+        "config.yaml"
     output: 
-        get_fastq_to_download("raw_data.txt")
+        expand("{sample}", sample=config["samples"])
     conda:
         "envs/genelab-utils.yaml"
     log:
         "download_data.log"
+    params:
+        osd_id=expand("{osd_id}", osd_id=config["osd_id"])
     shell:
         """
-        for data in {output}
-        do
-        GL-download-GLDS-data -g OSD-168 -f --pattern $data
-        done
+        scripts/download_rule.sh "{params.osd_id}" "{output}"
         """
