@@ -1,0 +1,16 @@
+import os
+import glob
+
+input_files = glob_wildcards("rawReads/{sample}.fastq.gz")
+
+rule all:
+    input:
+        expand("rawReads_gunzip/{sample}.fastq", sample=input_files.sample)
+
+rule gunzip:
+    input:
+        "rawReads/{sample}.fastq.gz"
+    output:
+        "rawReads_gunzip/{sample}.fastq"
+    shell:
+        "gunzip -c {input} > {output}"
