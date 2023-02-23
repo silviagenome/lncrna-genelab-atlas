@@ -5,3 +5,4 @@ channels:
   - astrobiomike
  dependencies:
   - genelab-utils>=1.2.09
+  - seqtk
