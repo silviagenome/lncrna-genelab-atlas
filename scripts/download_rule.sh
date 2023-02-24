@@ -10,6 +10,8 @@ for ((i=0;i<${#mysamples[@]};i++)); do
   
   if [ $subsamplefastq == 'true']; then
   
+    echo "subsampling ${mysamples[i]} with seqtk"
+    
     mv ${mysamples[i]} temp.fq.gz
     
     gunzip temp.fq.gz
