@@ -3,5 +3,6 @@ channels:
   - bioconda
   - nodefaults
 dependencies:
-  - bioconductor-deseq2 =1.38
+  - bioconda::bioconductor-deseq2=1.34.0
   - r-ashr =2.2_54
+  - bioconda::bioconductor-genefilter=1.76.0
