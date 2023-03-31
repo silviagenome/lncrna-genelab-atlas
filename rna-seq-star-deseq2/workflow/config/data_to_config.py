@@ -19,12 +19,26 @@ new_data = {'sample_name': ['A1', 'B1', 'A2', 'B2'],
 new_df = pd.DataFrame(new_data)
 
 # Agregar al nuevo dataframe la información correspondiente a cada muestra
-for i, row in new_df.iterrows():
-    sample_name = row['sample_name']
-    condition = row['condition']
-    filenames = df[(df['genelab_id'] == 'OSD-168') & (df['condition'] == condition)]['filename'].tolist()
-    new_df.at[i, 'fq1'] = "/home/alumno15/TFM/rawReads/"+filenames[0] if sample_name.startswith('A') else "/home/alumno15/TFM/rawReads/"+filenames[2]
-    new_df.at[i, 'fq2'] = "/home/alumno15/TFM/rawReads/"+filenames[1] if sample_name.startswith('A') else "/home/alumno15/TFM/rawReads/"+filenames[3]
+index = 0
+while index <= 2:
+    for i, row in new_df.iterrows():
+        sample_name = row['sample_name']
+        print(sample_name)
+        condition = row['condition']
+        filenames = df[(df['genelab_id'] == 'OSD-168') & (df['condition'] == condition)]['filename'].tolist()
+        print(filenames)
+        if sample_name.startswith("A"):
+            print("aquí A")
+            print(index)
+            index = index
+            new_df.at[i, 'fq1'] = "/home/alumno15/TFM/rawReads/"+filenames[index]
+            new_df.at[i, 'fq2'] = "/home/alumno15/TFM/rawReads/"+filenames[index+1]
+        else:
+            print("aquí B")
+            print(index)
+            new_df.at[i, 'fq1'] = "/home/alumno15/TFM/rawReads/"+filenames[index]
+            new_df.at[i, 'fq2'] = "/home/alumno15/TFM/rawReads/"+filenames[index+1]
+            index+=2
 
 # Mostrar el nuevo dataframe con la información agregada
 new_df.insert(1, "unit_name", [1,1,1,1], True)
