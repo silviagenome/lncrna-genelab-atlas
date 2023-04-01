@@ -1,7 +1,6 @@
-# TFM
-Detection of long non-coding RNAs (lncRNAs) during Spaceflight using RNA-seq data
+# Analysis of long non-coding RNAs (lncRNAs) during Spaceflight
 
-- using mouse datasets from [NASA GeneLab](https://genelab.nasa.gov) database
+- using mouse RNA-seq datasets from [NASA GeneLab](https://genelab.nasa.gov) database
 - with Ensembl/GENCODE annotations
 - to study multi-organ, multi-tissue lncRNA alterations
 
