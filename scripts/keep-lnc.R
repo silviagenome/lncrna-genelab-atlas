@@ -37,4 +37,5 @@ df2 <-  merge(x=results, y=geneinfo, by='ensembl_gene_id' )
 df3 <- df2[which(df2$gene_biotype=='lncRNA'),]
 
 # save table
-write.csv (  df3[order(df3$padj , decreasing= FALSE),] ,  file= paste0('lncrna-', ensembl_version , '-',args[1] ), row.names = FALSE )
+write.table (  x=df3[order(df3$padj , decreasing= FALSE),] ,  file= paste0('lncrna-', ensembl_version , '-',args[1] ), 
+  quote=FALSE, row.names = FALSE, sep="\t" )
