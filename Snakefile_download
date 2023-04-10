@@ -21,10 +21,8 @@ rule download_data:
     log:
         "download_data.log"
     params:
-        osd_id=expand("{osd_id}", osd_id=config["osd_id"]),
-        subsampling=config["subsample"],
-        nsubreads=config["subreads"]
+        osd_id=expand("{osd_id}", osd_id=config["osd_id"])
     shell:
         """
-        scripts/download_rule.sh "{params.osd_id}" "{output}" "{params.subsampling}" {params.nsubreads}
+        scripts/download_rule.sh "{params.osd_id}" "{output}"
         """
