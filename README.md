@@ -13,10 +13,10 @@ snakemake -c1 --use-conda --jobs 1 --config subsample='true' subreads=10000 -s S
 ```
 
 
-The second workflow unzips fastq.gz raw data
+The second workflow trimmes to Trim paired-end reads with trimmomatic
 
 ```
-snakemake -c1 --use-conda --jobs 1 -s Snakefile_decompress --cluster 'sbatch --partition eck-q'
+snakemake -c1 --use-conda --jobs 1 -s Snakefile_trimmomatic --cluster 'sbatch --partition eck-q'
 ```
 
 Now create config tables:
@@ -27,12 +27,13 @@ python data_to_config.py
 The third workflow run STAR-DESeq2
 
 ```
-snakemake ...
+snakemake -c24 -F --use-conda --jobs 24 -s Snakefile --latency-wait 60 --cluster 'sbatch --partition eck-q'
 ```
 
-## other
-worflow to Trim paired-end reads with trimmomatic
+Generation of the report
 
 ```
-snakemake -c1 --rerun-incomplete --use-conda --jobs 1 -s Snakefile_trimmomatic --cluster 'sbatch --partition eck-q'
+snakemake --report report.zip
 ```
+
+
