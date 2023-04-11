@@ -1,0 +1,37 @@
+# path or URL to sample sheet (TSV format, columns: sample, condition, ...)
+samples: config/samples2.tsv
+# path or URL to sequencing unit sheet (TSV format, columns: sample, unit, fq1, fq2)
+# Units are technical replicates (e.g. lanes, or resequencing of the same biological
+# sample).
+units: config/units2.tsv
+
+
+ref:
+  # Ensembl species name
+  species: mus_musculus
+  # Ensembl release (make sure to take one where snpeff data is available, check 'snpEff databases' output)
+  release: 109
+  # Genome build
+  build: GRCm39
+
+trimming:
+  activate: False
+
+pca:
+  activate: True
+  labels:
+    # columns of sample sheet to use for PCA
+    - condition
+
+diffexp:
+  # contrasts for the deseq2 results method
+  contrasts:
+    spaceflight-vs-control:
+      - spaceflight
+      - control
+  model: ~condition
+
+params:
+  cutadapt-pe: ""
+  cutadapt-se: ""
+  star: ""

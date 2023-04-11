@@ -1,7 +1,0 @@
-rule decompress:
-    input:
-        "GLDS-168_rna_seq_Mmus_C57-6J_LVR_RR1_VIV_noERCC_Rep1_M16_R2_raw.fastq.gz"
-    output:
-        "GLDS-168_rna_seq_Mmus_C57-6J_LVR_RR1_VIV_noERCC_Rep1_M16_R2_raw.fastq"
-    shell:
-        "gunzip GLDS-168_rna_seq_Mmus_C57-6J_LVR_RR1_VIV_noERCC_Rep1_M16_R2_raw.fastq.gz"

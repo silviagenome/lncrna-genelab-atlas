@@ -1,7 +1,0 @@
-rule compress:
-    input:
-        "texto1.txt"
-    output:
-        "texto1.txt.gz"
-    shell:
-        "gzip texto1.txt"
