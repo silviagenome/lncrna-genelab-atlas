@@ -1,7 +1,7 @@
 # Analysis of long non-coding RNAs (lncRNAs) during Spaceflight
 
 - using mouse RNA-seq datasets from [NASA GeneLab](https://genelab.nasa.gov) database
-- with Ensembl/GENCODE annotations
+- with Ensembl 109 annotations
 - to study multi-organ, multi-tissue lncRNA alterations
 
 ## Running the analysis
