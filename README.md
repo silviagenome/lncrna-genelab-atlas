@@ -23,7 +23,7 @@ Now create config tables:
 python data_to_config.py
 ```
 
-The third workflow run STAR-DESeq2
+The third workflow run STAR-DESeq2, it has to be run from rna-seq-star-deseq2/workflow
 
 ```
 snakemake -c4 -F --use-conda --jobs 4 -s Snakefile --latency-wait 60 --cluster 'sbatch --partition ledley-q -eo'
