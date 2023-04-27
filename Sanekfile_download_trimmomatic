@@ -26,7 +26,7 @@ rule download_data:
         osd_id=expand("{osd_id}", osd_id=config["osd_id"])
     shell:
         """
-        scripts/download_rule.sh "{params.osd_id}" "{output:9}"
+        scripts/download_rule.sh "{params.osd_id}" "{output}"
         """
 
 rule trimmomatic:
