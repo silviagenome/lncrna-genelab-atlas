@@ -6,6 +6,12 @@
 
 ## Running the analysis
 
+It is necessary to run this first Snakefile of preparation of directories
+
+```
+snakemake -c1 --jobs 1 -s Snakefile_pre --cluster 'sbatch --partition eck-q' --latency-wait 60
+```
+
 The first worflow downloads all the raw data and trimmes to Trim paired-end reads with trimmomatic
 
 ```
