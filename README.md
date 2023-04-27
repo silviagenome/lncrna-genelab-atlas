@@ -20,7 +20,7 @@ python data_to_config.py
 The third workflow run STAR-DESeq2
 
 ```
-snakemake -c4 -F --use-conda --jobs 4 -s Snakefile --latency-wait 60 --cluster 'sbatch --partition ledley-q'
+snakemake -c4 -F --use-conda --jobs 4 -s Snakefile --latency-wait 60 --cluster 'sbatch --partition ledley-q -eo'
 ```
 
 Generation of the report
