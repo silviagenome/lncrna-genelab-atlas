@@ -8,7 +8,7 @@ SAMPLE,FRR = glob_wildcards("rawReads/{sample}_{frr}_raw.fastq.gz")
 
 rule all:
     input:
-      expand("{sample}", sample=config["samples"]),
+      expand("rawReads/{sample}", sample=config["samples"]),
       expand("trimmed/{sample}_{frr}_fastq.gz", sample=SAMPLE, frr=FRR),
       expand("trimmed_unpaired/{sample}_{frr}_unpaired.fastq.gz", sample=SAMPLE, frr=FRR)
 
