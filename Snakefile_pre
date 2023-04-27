@@ -1,0 +1,15 @@
+import csv
+import os
+import glob
+
+configfile: "config/config.yaml"
+
+rule pre:
+    input:
+        "config/config.yaml"
+    output: 
+        expand("rawReads/{sample}", sample=config["samples"])
+    shell:
+        """
+        touch {output}
+        """
