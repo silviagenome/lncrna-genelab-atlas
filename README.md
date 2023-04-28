@@ -35,4 +35,9 @@ Generation of the report
 snakemake --report report.zip
 ```
 
+For filtering out non-lncRNAs and adding annotations use `./scripts/keep-lnc.R`.
 
+
+## References
+
+Part of our pipelines uses (with modifications) the workflow https://github.com/snakemake-workflows/rna-seq-star-deseq2
