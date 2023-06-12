@@ -13,7 +13,7 @@ ANALYSIS	STUDY OSD	TISSUE	REPLICATES	MISSION	COMPARISON	EXTRA FEATURES	COMPLETAT
 12	163	kidney	6	RR3	ground control/spaceflight		Yes	Wrong	Yes
 13	137	liver	6	RR3	ground control/spaceflight		Yes	Worng	Yes
 14	161	adrenal gland	5	RR3	ground control/spaceflight		Yes	Wrong	Yes
-15	397	right retina	5	RR1	ground control/spaceflight				
+15	397	right retina	5	RR1	ground control/spaceflight		Yes	Wrong	Yes
 16	352	brain	5	RR3	ground control/spaceflight				
 17	164	immunoglobulin	3	RR1	ground control/spaceflight	liver	Yes	Wrong	Yes
 18	164	immunoglobulin	3	RR1	ground control/spaceflight	spleen			
