@@ -15,7 +15,7 @@ snakemake -c1 --jobs 1 -s Snakefile_pre --cluster 'sbatch --partition eck-q' --l
 The first worflow downloads all the raw data and trimmes to Trim paired-end reads with trimmomatic
 
 ```
-snakemake -c1 --use-conda --jobs 1 -s Snakefile_download_trimmomatic --cluster 'sbatch --partition eck-q'
+snakemake -c32 --use-conda --jobs 32 -s Snakefile_download_trimmomatic --cluster 'sbatch --partition eck-q'
 ```
 
 Now create config tables:
