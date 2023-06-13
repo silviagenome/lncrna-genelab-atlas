@@ -55,7 +55,7 @@ tabla_verificacion_filtrada <- tabla_verificacion[tabla_verificacion$padj < 0.05
                                        (tabla_verificacion$log2FoldChange > 1 | tabla_verificacion$log2FoldChange < -1), ]
 
 # Obtener la lista de genes en genes_in_range que se encuentran en la tabla filtrada
-genes_finales <- intersect(genes_in_range, tabla_verificacion$gene)
+genes_finales <- intersect(genes_in_range, tabla_verificacion_filtrada$gene)
 
 ##GO ENRICHMENT##
 enrich_result <- enrichGO(gene          = genes_finales,
