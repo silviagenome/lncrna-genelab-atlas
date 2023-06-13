@@ -1,98 +1,78 @@
 library(biomaRt)
+library(dplyr)
+library(clusterProfiler)
+library(org.Mm.eg.db)
 
-search_protein_coding_genes <- function(ens_id, distance, tabla_verificacion) {
-  ensembl <- useMart("ENSEMBL_MART_ENSEMBL", dataset = "mmusculus_gene_ensembl")
+
+# Crear una función para obtener los genes en el rango especificado
+get_genes_in_range <- function(ens_ids, distance) {
+  # Cargar el objeto Mart
+  ensembl <- useMart("ENSEMBL_MART_ENSEMBL", dataset = "mmusculus_gene_ensembl", host = "asia.ensembl.org")
   
-  # Verificar si se utiliza ENS id o external_gene_name
-  if (grepl("^ENSMUS", ens_id)) {
-    query_filter <- "ensembl_gene_id"
-  } else {
-    query_filter <- "external_gene_name"
-  }
-  
-  # Obtener información del gen de interés
-  info <- getBM(attributes = c("chromosome_name", "start_position", "end_position", "strand"),
-                filters = query_filter,
-                values = ens_id,
+  # Obtener información de los genes de interés en una sola consulta
+  info <- getBM(attributes = c("ensembl_gene_id", "external_gene_name", "chromosome_name", "start_position", "end_position", "strand"),
+                filters = "ensembl_gene_id",
+                values = ens_ids,
                 mart = ensembl)
   
-  # Verificar si se encontró información para el gen
-  if (nrow(info) == 0) {
-    cat("No se encontró información para el gen especificado.")
-    return()
-  }
-  
   # Calcular posiciones de inicio y finalización considerando la distancia
-  start_position <- info$start_position - distance
-  end_position <- info$end_position + distance
+  info$start_position <- info$start_position - distance
+  info$end_position <- info$end_position + distance
   
-  # Realizar la consulta a BioMart
-  result <- getBM(attributes = c("ensembl_gene_id", "external_gene_name", "chromosome_name", "start_position", "end_position", "strand"),
-                  filters = c("chromosome_name", "start", "end", "biotype"),
-                  values = list(info$chromosome_name, start_position, end_position, "protein_coding"),
-                  mart = ensembl)
-  
-  # Imprimir los resultados
-  for (i in 1:nrow(result)) {
-    ensembl_gene_id <- result[i, "ensembl_gene_id"]
-    external_gene_name <- result[i, "external_gene_name"]
-    chromosome_name <- result[i, "chromosome_name"]
-    start_position <- result[i, "start_position"]
-    end_position <- result[i, "end_position"]
-    strand <- result[i, "strand"]
-    
-    # Verificar si los valores existen y no son nulos
-    cat("Ensembl Gene ID:", ensembl_gene_id, "\n")
-    cat("External Gene Name:", external_gene_name, "\n")
-    cat("Chromosome Name:", chromosome_name, "\n")
-    cat("Start Position:", start_position, "\n")
-    cat("End Position:", end_position, "\n")
-    cat("Strand:", strand, "\n")
-    cat(rep("-", 50), "\n")
-    
-    # Verificar si external_gene_name existe en la tabla inicial
-    if (tryCatch(exists("ensembl_gene_id"), error = function(e) FALSE) && length(ensembl_gene_id) > 0) {
-      if (tryCatch(!is.na(ensembl_gene_id), error = function(e) FALSE)) {
-        if (ensembl_gene_id %in% tabla_verificacion$gene) {
-          gene_found <- paste(ensembl_gene_id, "encontrado en la tabla para", ens_id)
-        } else {
-          gene_found <- paste(ensembl_gene_id, "no encontrado en la tabla para", ens_id)
-        }
-      } else {
-        gene_found <- paste(ensembl_gene_id, "no encontrado en la tabla para", ens_id)
-      }
-    } else {
-      gene_found <- paste("Ensembl Gene ID no encontrado en la tabla para", ens_id)
-    }
-    
-    
-    cat(gene_found, "\n")
-    cat(rep("-", 50), "\n")
-    
-    # Agregar el gen encontrado a la lista
-    gene_list[[ens_id]] <- gene_found
+  # Obtener los genes en el rango especificado
+  genes_in_range <- character()
+  for (i in 1:nrow(info)) {
+    genes <- getBM(attributes = "ensembl_gene_id",
+                   filters = c("chromosome_name", "start", "end"),
+                   values = list(info[i, "chromosome_name"], info[i, "start_position"], info[i, "end_position"]),
+                   mart = ensembl)$ensembl_gene_id
+    genes_in_range <- c(genes_in_range, genes)
   }
+  
+  return(unique(genes_in_range))
 }
 
-
-
+genes_in_range <- c()
 
 # Cargar la tabla TSV
-tabla <- read.table("lncrna-Ensembl-Genes-109-spaceflight-vs-control.diffexp-1-168.tsv", sep="\t", header=TRUE)
-tabla_verificacion <- read.table("spaceflight-vs-control.diffexp.tsv", sep="\t", header=TRUE)
+tabla <- read.table("/home/alumno15/TFM/results-keep-lnc/lncrna-Ensembl-Genes-109-spaceflight-vs-control.diffexp-1-168.tsv", sep="\t", header=TRUE)
+tabla_verificacion <- read.table("/home/alumno15/TFM/results-tablas/spaceflight-vs-control.diffexp-1-168.tsv", sep="\t", header=TRUE)
 
-# Obtener los valores de Ensembl Gene ID de la tabla
-ens_ids <- tabla$ensembl_gene_id
-distance <- 10000
 
-options(timeout = 120)
+# Filtrar genes según los criterios especificados
+ens_ids <- tabla$ensembl_gene_id[tabla$padj < 0.05 & (tabla$log2FoldChange > 1 | tabla$log2FoldChange < -1)]
 
-# Crear una lista vacía para almacenar los genes encontrados
-gene_list <- list()
 
-# Ejecutar la función con cada valor de Ensembl Gene ID
-for (ens_id in ens_ids) {
-  search_protein_coding_genes(ens_id, distance, tabla_verificacion)
-}
+# Obtener los genes en el rango especificado
+distance <- 100000
+genes_in_range <- get_genes_in_range(ens_ids, distance)
 
-print(gene_list)
+# Filtrar los genes de genes_in_range que aparecen en tabla_verificacion
+genes_finales <- genes_in_range[genes_in_range %in% tabla_verificacion$gene]
+
+# Filtrar la tabla_verificacion según las condiciones requeridas
+tabla_verificacion_filtrada <- tabla_verificacion[tabla_verificacion$padj < 0.05 &
+                                       (tabla_verificacion$log2FoldChange > 1 | tabla_verificacion$log2FoldChange < -1), ]
+
+# Obtener la lista de genes en genes_in_range que se encuentran en la tabla filtrada
+genes_finales <- intersect(genes_in_range, tabla_verificacion$gene)
+
+##GO ENRICHMENT##
+enrich_result <- enrichGO(gene          = genes_finales,
+                          OrgDb         = org.Mm.eg.db,  # Base de datos específica para Mus musculus
+                          keyType       = "ENSEMBL",
+                          ont           = "BP",          # Ontología biológica de procesos (BP)
+                          pvalueCutoff = 0.05,          # Umbral de significancia para el valor de p
+                          qvalueCutoff = 0.05,
+                          pAdjustMethod = "BH")          # Umbral de significancia para el q-value ajustado
+
+# Imprimir los resultados de enriquecimiento de GO
+print(enrich_result)
+
+####GRÁFICOS####
+
+# Realizar análisis de enriquecimiento funcional
+
+library(enrichplot)
+barplot(enrich_result, showCategory=20) + labs(x = "Genes Count", y = "GO term")
+dotplot(enrich_result, showCategory=30) + labs(y = "GO term")
