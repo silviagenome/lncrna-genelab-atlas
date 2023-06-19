@@ -35,8 +35,9 @@ Generation of the report
 snakemake --report report.zip
 ```
 
-For filtering out non-lncRNAs and adding annotations use `./scripts/keep-lnc.R`.
+For filtering out lncRNAs and adding annotations use `./scripts/keep-lnc.R`.
 
+For functional annotation of lncRNAs use `./scripts/enrichment.R`
 
 ## References
 
