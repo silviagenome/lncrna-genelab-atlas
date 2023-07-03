@@ -18,9 +18,9 @@ ANALYSIS	STUDY OSD	TISSUE	REPLICATES	MISSION	COMPARISON	EXTRA FEATURES	COMPLETAT
 17	164	immunoglobulin	3	RR1	ground control/spaceflight	liver	Yes	Wrong	Yes
 18	164	immunoglobulin	3	RR1	ground control/spaceflight	spleen	Yes	Half	Yes
 19	162	mouse eye	5	RR3	ground control/spaceflight		Yes	Half	Yes
-20	194	retina	4	RR3	ground control/spaceflight				
-21	270	heart	5	RR3	ground control/spaceflight	tissue level1			
-22	270	heart	4	RR3	ground control/spaceflight	tissue level2			
+20	194	retina	4	RR3	ground control/spaceflight		Yes	Half	Yes
+21	270	heart	5	RR3	ground control/spaceflight	tissue level1		Yes Half	Yes
+22	270	heart	4	RR3	ground control/spaceflight	tissue level2
 23	270	heart	6	RR3	ground control/spaceflight	tissue level3			
 24	270	heart	2	RR3	ground control/spaceflight	tissue level4			
 25n	48	liver	w/o R2 9	RR1	ground control/spaceflight				
