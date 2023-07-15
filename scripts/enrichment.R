@@ -34,8 +34,11 @@ get_genes_in_range <- function(ens_ids, distance) {
 }
 
 # loading tsv tables
-table <- read.table("/home/alumno15/TFM/results-keep-lnc/lncrna-Ensembl-Genes-109-spaceflight-vs-control.diffexp-[analysis number]-[study number].tsv", sep="\t", header=TRUE)
-table_verification <- read.table("/home/alumno15/TFM/results-tablas/spaceflight-vs-control.diffexp-[analysis number]-[study number].tsv", sep="\t", header=TRUE)
+pathway_lncrna <- ""
+pathway_allgenes <- ""
+
+table <- read.table(pathway_lncrna, sep="\t", header=TRUE)
+table_verification <- read.table(pathway_allgenes, sep="\t", header=TRUE)
 
 # Filtering of genes based on the specified criteria.
 ens_ids_up <- tabla$ensembl_gene_id[tabla$padj < 0.05 & tabla$log2FoldChange > 1]
