@@ -1,0 +1,29 @@
+#!/usr/bin/env python
+
+
+from matplotlib_venn import venn2
+import matplotlib.pyplot as plt
+import pandas as pd
+
+# Carga los datos de las tablas en dataframes o en cualquier otra estructura de datos adecuada
+tabla1 = pd.read_csv("/home/alumno15/TFM/results-keep-lnc/lncrna-Ensembl-Genes-109-spaceflight-vs-control.diffexp-1-168.tsv", sep = '\t')
+tabla2 = pd.read_csv("/home/alumno15/TFM/results-keep-lnc/lncrna-Ensembl-Genes-109-spaceflight-vs-control.diffexp-2-168.tsv", sep = '\t')
+
+# Filtra los genes según las condiciones
+def genes_condicion(tabla):
+    return tabla.loc[(tabla['padj'] < 0.05) & ((tabla['log2FoldChange'] > 1) | (tabla['log2FoldChange'] < -1)), 'ensembl_gene_id']
+
+genes_tabla1 = set(genes_condicion(tabla1))
+genes_tabla2 = set(genes_condicion(tabla2))
+
+# Crea el diagrama de Venn
+venn_diagram = venn2(subsets=(len(genes_tabla1), len(genes_tabla2), len(genes_tabla1.intersection(genes_tabla2))),
+                     set_labels=('1-liver', '2-liver'))
+
+# Personaliza el diagrama según tus preferencias
+venn_diagram.get_label_by_id('10').set_text(len(genes_tabla1) - len(genes_tabla1.intersection(genes_tabla2)))
+venn_diagram.get_label_by_id('01').set_text(len(genes_tabla2) - len(genes_tabla1.intersection(genes_tabla2)))
+print(genes_tabla1.intersection(genes_tabla2))
+# Muestra el diagrama de Venn
+plt.savefig('venn_liver.png', dpi=300)
+plt.show()
