@@ -1,0 +1,29 @@
+ANALYSIS	STUDY OSD	TISSUE	REPLICATES	MISSION	COMPARISON	EXTRA FEATURES	COMPLETATION	PCA
+1	168	liver	5	RR1	ground control/spaceflight	noERCC	Yes	Right
+2	168	liver	5	RR1	ground control/spaceflight	wERCC	Yes	Right
+3	168	liver	4	RR3	ground control/spaceflight	wERCC	Yes	Wrong
+4	104	soleus muscle	6	RR1	ground control/spaceflight		Yes	Right
+5	105	tibialis anterior muscle	6	RR1	ground control/spaceflight		Yes	Right
+6	100	eye	6	RR1	ground control/spaceflight		Yes	Wrong
+7	103	quadriceps muscle	6	RR1	ground control/spaceflight		Yes	Wrong
+8	101	left gastrocnemius muscle	6	RR1	ground control/spaceflight	4 replicates	Yes	Wrong
+9	99	extensor digitorum longus muscle	6	RR1	ground control/spaceflight	4 replicates	Yes	Wrong
+10	102	kidney	6	RR1	ground control/spaceflight		Yes	Half
+11	98	adrenal gland	5	RR1	ground control/spaceflight		Yes	Wrong
+12	163	kidney	6	RR3	ground control/spaceflight		Yes	Wrong
+13	137	liver	6	RR3	ground control/spaceflight		Yes	Worng
+14	161	adrenal gland	5	RR3	ground control/spaceflight		Yes	Wrong
+15	397	right retina	5	RR1	ground control/spaceflight		Yes	Wrong
+16	352	brain	5	RR3	ground control/spaceflight		Yes	Wrong
+17	164	immunoglobulin	3	RR1	ground control/spaceflight	liver	Yes	Wrong
+18	164	immunoglobulin	3	RR1	ground control/spaceflight	spleen	Yes	Half
+19	162	mouse eye	5	RR3	ground control/spaceflight		Yes	Half
+20	194	retina	4	RR3	ground control/spaceflight		Yes	Half
+21	270	heart	5	RR3	ground control/spaceflight	tissue level1	Yes	Half
+22	270	heart	4	RR3	ground control/spaceflight	tissue level2	Yes	Right
+23	270	heart	6	RR3	ground control/spaceflight	tissue level3	Yes	Half
+24	270	heart	2	RR3	ground control/spaceflight	tissue level4	Yes	Right
+25n	48	liver	w/o R2 9	RR1	ground control/spaceflight			
+26n	47	liver	w/o R2 3	RR1	ground control/spaceflight			
+27n	47	liver	Only ground control 3	RR1	basal controls/spaceflight			
+28n	419	right gastrocnemius muscle	w/o R2	RR1				

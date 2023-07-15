@@ -1,3 +1,5 @@
+#Example of a configuration file that should be modified for each analysis based on the data found in its corresponding raw_data.txt file
+
 samples:
  - GLDS-168_rna_seq_Mmus_C57-6J_LVR_RR1_GC_noERCC_Rep1_M36_R1_raw.fastq.gz
  - GLDS-168_rna_seq_Mmus_C57-6J_LVR_RR1_GC_noERCC_Rep1_M36_R2_raw.fastq.gz
