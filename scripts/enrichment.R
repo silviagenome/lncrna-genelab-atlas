@@ -54,10 +54,10 @@ final_genes <- intersect(genes_in_range, tabla_verificacion$gene)
 
 ##GO ENRICHMENT##
 
-enrich_result <- enrichGO(gene          = final_genes,
-                          OrgDb         = org.Mm.eg.db,  
-                          keyType       = "ENSEMBL",
-                          ont           = "ALL",         
+enrich_result <- enrichGO(gene = final_genes,
+                          OrgDb = org.Mm.eg.db,  
+                          keyType = "ENSEMBL",
+                          ont = "ALL",         
                           pvalueCutoff = 0.05,          
                           qvalueCutoff = 0.05,
                           pAdjustMethod = "BH")          
