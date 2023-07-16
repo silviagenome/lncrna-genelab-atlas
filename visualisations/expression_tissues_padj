@@ -1,0 +1,94 @@
+#!/usr/bin/env python
+
+import os
+import csv
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+#Create a dictionary with the values of ANALYSIS as keys and TISSUE as values
+file_path = 'tabla_TFM_graphs.tsv'
+
+analysis_to_tissue = {}
+
+#Open the file and read the data
+with open(file_path, 'r') as file:
+    reader = csv.DictReader(file, delimiter='\t')
+    for row in reader:
+        analysis = row['ANALYSIS']
+        tissue = row['TISSUE']
+        analysis_to_tissue[analysis] = tissue
+
+#Folder path that contains the TSV files.
+folder_path = '/home/alumno15/TFM/results-keep-lnc/'
+
+#Lists to store the counts of upregulated and downregulated genes per file
+upregulated_counts = []
+downregulated_counts = []
+files_tsv = []
+
+#Get the list of TSV files in the folder
+files = os.listdir(folder_path)
+
+#Iterate through each TSV file
+for file in files:
+    if file.endswith('.tsv'):
+        # Contadores para cada archivo
+        upregulated_count = 0
+        downregulated_count = 0
+        
+        #Read the TSV file
+        with open(os.path.join(folder_path, file), 'r') as f:
+            reader = csv.DictReader(f, delimiter='\t')
+            for row in reader:
+                padj = row['padj']
+                log2FoldChange = row['log2FoldChange']
+                
+                #Check that the values are not 'NA' before converting them to float
+                if padj != 'NA' and log2FoldChange != 'NA':
+                    padj = float(padj)
+                    log2FoldChange = float(log2FoldChange)
+                    # Comprobar las condiciones para clasificar el gen
+                    if padj < 0.05 and log2FoldChange > 1:
+                        upregulated_count += 1
+                    elif padj < 0.05 and log2FoldChange < -1:
+                        downregulated_count += 1
+        
+        #Add the counts to the lists
+        upregulated_counts.append(upregulated_count)
+        downregulated_counts.append(downregulated_count)
+        file_name = file.split("-")[-2:]
+        file_name = "-".join(file_name)
+        file_name = file_name.rsplit(".", 1)[0]
+        if "-" in file_name:
+                number = file_name.split("-", 1)[0]
+                if number in analysis_to_tissue:
+                    tissue = analysis_to_tissue[number]
+                    file_name = f"{number}-{tissue}"
+        files_tsv.append(file_name)
+
+#Convert the labels on the x-axis to numeric values
+numeric_xticks = [int(label.split('-')[0]) for label in files_tsv]
+
+#Get the index for numeric sorting
+order_index = sorted(range(len(numeric_xticks)), key=lambda x: numeric_xticks[x])
+
+#Reorder the lists according to the sorting index
+files_tsv_sorted = [files_tsv[i] for i in order_index]
+upregulated_counts_sorted = [upregulated_counts[i] for i in order_index]
+downregulated_counts_sorted = [downregulated_counts[i] for i in order_index]
+
+#Create a stacked bar chart with the sorted data
+sns.set(style="whitegrid")
+plt.figure(figsize=(10, 8))
+x = range(len(files_tsv_sorted))
+width = 0.35
+plt.bar(x, upregulated_counts_sorted, width, label='Upregulated', color='#d9544d')
+plt.bar(x, downregulated_counts_sorted, width, bottom=upregulated_counts_sorted, label='Downregulated', color='#35ad6b')
+plt.xlabel('Tissue analysis')
+plt.ylabel('Number of differentially expressed lncRNA genes')
+plt.xticks(x, archivos_tsv_sorted, rotation=90)
+plt.legend()
+plt.tight_layout()
+
+plt.savefig('expression-tissues_padj.png', dpi=300)
+plt.show()
