@@ -1,0 +1,31 @@
+#!/usr/bin/env python
+
+import seaborn as sns
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+
+analysis = pd.read_csv('resultados_padj.tsv', sep='\t', index_col=0)
+
+
+analysis_sorted = analysis.reindex(sorted(analysis.columns, key=lambda x: int(x.split('-')[0])), axis=1)
+
+
+
+n_cols = analysis_sorted.shape[1]
+n_rows = analysis_sorted.shape[0]
+square_width = 0.5  # Ajustar este valor según tus preferencias
+
+fig, ax = plt.subplots(figsize=(50, 41))
+analysis_heatmap = sns.heatmap(analysis_sorted, vmin=analysis_sorted.values.min(), vmax=3,
+                               fmt=".1f", square=True, cmap="coolwarm",
+                               linewidths=0.1, annot_kws={"size": 35 / np.sqrt(len(analysis_sorted))}, ax=ax)
+
+ax.set_aspect(square_width)
+
+
+plt.xticks(rotation=90)
+
+plt.savefig('analysis_heatmap_padj.png', dpi=300)
+plt.savefig('analysis_heatmap_padj.jpeg', dpi=300)
+plt.show()
