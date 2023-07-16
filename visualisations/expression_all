@@ -1,0 +1,53 @@
+#!/usr/bin/env python
+
+##This script is for creating the table of upregulated and downregulated lncRNA
+
+import os
+import csv
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+#Path to the folder that contains the TSV files
+folder_path = '/home/alumno15/TFM/results-keep-lnc/'
+
+#Lists to store the upregulated and downregulated genes
+upregulated = []
+downregulated = []
+
+#Get the list of TSV files in the folder
+files = os.listdir(folder_path)
+
+#Iterate over each TSV file
+for file in files:
+    if file.endswith('.tsv'):
+        #Read the tsv file
+        with open(os.path.join(folder_path, file), 'r') as f:
+            reader = csv.DictReader(f, delimiter='\t')
+            for row in reader:
+                padj = row['padj']
+                log2FoldChange = row['log2FoldChange']
+                gene_id = row['ensembl_gene_id']
+                #Check that the values are not 'NA' before converting to float
+                if padj != 'NA' and log2FoldChange != 'NA':
+                    padj = float(padj)
+                    log2FoldChange = float(log2FoldChange)
+                    #Check the conditions to classify the gene
+                    if padj < 0.05 and log2FoldChange > 1:
+                        upregulated.append(gene_id)
+                    elif padj < 0.05 and log2FoldChange < -1:
+                        downregulated.append(gene_id)
+
+#Count of upregulated and downregulated genes
+upregulated_count = len(upregulated)
+print(upregulated_count)
+downregulated_count = len(downregulated)
+print(downregulated_count)
+
+#Create the bar plot
+sns.set(style="whitegrid")
+plt.figure(figsize=(6, 5))
+sns.barplot(x=['Upregulated', 'Downregulated'], y=[upregulated_count, downregulated_count], palette=["#d9544d", "#35ad6b"])
+plt.xlabel('Expression')
+plt.ylabel('Number of differentially expressed lncRNA genes')
+plt.savefig('expression-all_padj.png', dpi=300)
+plt.show()
